@@ -3,158 +3,79 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Project 01 — Dylan Budner</title>
+  <title>Single Family Lake House — Dylan Budner</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Montserrat:wght@200;300&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --bg: #f8f7f4;
-      --ink: #1a1a18;
-      --muted: #8a8a82;
-      --rule: #d8d6d0;
-    }
-
     html, body {
       height: 100%;
-      background: var(--bg);
-      color: var(--ink);
+      background: #111110;
       font-family: 'Montserrat', sans-serif;
-      font-weight: 300;
+      display: flex;
+      flex-direction: column;
     }
 
-    /* ── TOP BAR ── */
     header {
+      background: #111110;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 28px 40px;
-      border-bottom: 1px solid var(--rule);
-      opacity: 0;
-      animation: fadeDown 0.6s forwards 0.1s;
+      padding: 0 32px;
+      height: 56px;
+      flex-shrink: 0;
+      gap: 24px;
     }
 
     .back-btn {
       text-decoration: none;
-      color: var(--muted);
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: color 0.2s;
+      color: #fff;
+      font-size: 22px;
+      line-height: 1;
+      transition: opacity 0.2s, transform 0.2s;
+      flex-shrink: 0;
     }
 
-    .back-btn::before {
-      content: '←';
-      font-size: 14px;
-      transition: transform 0.2s;
+    .back-btn:hover {
+      opacity: 0.6;
+      transform: translateX(-4px);
     }
 
-    .back-btn:hover { color: var(--ink); }
-    .back-btn:hover::before { transform: translateX(-4px); }
-
-    .header-title {
+    .banner-title {
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: 18px;
-      letter-spacing: 0.05em;
-      color: var(--ink);
+      font-size: clamp(12px, 1.4vw, 18px);
+      color: #fff;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
-    .header-count {
-      font-size: 10px;
-      letter-spacing: 0.18em;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
-
-    /* ── PDF VIEWER ── */
-    .viewer-wrap {
-      height: calc(100vh - 81px);
+    .pdf-wrap {
+      flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-      opacity: 0;
-      animation: fadeUp 0.7s forwards 0.35s;
     }
 
-    /* Placeholder box — replace the <embed> tag with your PDF */
-    .pdf-placeholder {
+    embed {
+      flex: 1;
       width: 100%;
-      max-width: 860px;
       height: 100%;
-      max-height: 680px;
-      border: 1px solid var(--rule);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      color: var(--muted);
-      background: #fff;
-    }
-
-    .pdf-placeholder svg {
-      opacity: 0.3;
-    }
-
-    .pdf-placeholder p {
-      font-size: 10px;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-    }
-
-    /*
-      ── HOW TO SWAP IN YOUR PDF ──
-      Replace the .pdf-placeholder div below with:
-
-      <embed
-        src="project-1.pdf"
-        type="application/pdf"
-        width="100%"
-        height="100%"
-        style="max-width:860px; max-height:680px; border:1px solid var(--rule);"
-      />
-
-      Make sure project-1.pdf is in the same folder as this HTML file.
-    */
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeDown {
-      from { opacity: 0; transform: translateY(-12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(16px); }
-      to   { opacity: 1; transform: translateY(0); }
+      display: block;
+      border: none;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <a class="back-btn" href="index.html">Back to home</a>
-    <span class="header-title">Dylan Budner</span>
-    <span class="header-count">Project 01 / 05</span>
+    <a class="back-btn" href="index.html">&#8592;</a>
+    <span class="banner-title">Single Family Lake House, Plymouth, Vermont</span>
   </header>
 
-  <div class="viewer-wrap">
-    <!-- Replace this placeholder with your <embed> tag once you have the PDF -->
-    <div class="pdf-placeholder">
-      <svg width="48" height="60" viewBox="0 0 48 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="1" y="1" width="46" height="58" rx="2" stroke="#1a1a18" stroke-width="1.5"/>
-        <path d="M30 1V14H46" stroke="#1a1a18" stroke-width="1.5"/>
-        <line x1="10" y1="26" x2="38" y2="26" stroke="#1a1a18" stroke-width="1.5"/>
-        <line x1="10" y1="34" x2="38" y2="34" stroke="#1a1a18" stroke-width="1.5"/>
-        <line x1="10" y1="42" x2="26" y2="42" stroke="#1a1a18" stroke-width="1.5"/>
-      </svg>
-      <p>project-1.pdf — drop your file here</p>
-    </div>
+  <div class="pdf-wrap">
+    <embed src="project-1.pdf" type="application/pdf" width="100%" height="100%" />
   </div>
 
 </body>
