@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dylan Budner Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f7f4;
+      --ink: #1a1a18;
+      --muted: #8a8a82;
+      --rule: #d8d6d0;
+      --accent: #1a1a18;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 300;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      padding: 28px 40px 0;
+      background: var(--bg);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      border: 1px solid transparent;
+      transition: color 0.25s, border-color 0.25s;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 50%; right: 50%;
+      height: 1px;
+      background: var(--ink);
+      transition: left 0.3s, right 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--ink);
+    }
+
+    nav a:hover::after {
+      left: 22px;
+      right: 22px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      padding: 0 10vw 10vh;
+    }
+
+    .hero-label {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.8s forwards 0.3s;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(52px, 9vw, 120px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      opacity: 0;
+      animation: fadeUp 1s forwards 0.5s;
+    }
+
+    .hero-title span {
+      display: block;
+    }
+
+    .hero-rule {
+      width: 60px;
+      height: 1px;
+      background: var(--rule);
+      margin-top: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s forwards 0.9s;
+    }
+
+    .hero-sub {
+      margin-top: 20px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0;
+      animation: fadeUp 0.8s forwards 1.1s;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: fixed;
+      bottom: 32px;
+      right: 40px;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--rule);
+      text-transform: uppercase;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="project-1.html">Project 01</a>
+    <a href="project-2.html">Project 02</a>
+    <a href="project-3.html">Project 03</a>
+    <a href="project-4.html">Project 04</a>
+    <a href="project-5.html">Project 05</a>
+  </nav>
+
+  <main class="hero">
+    <p class="hero-label">Architecture Portfolio</p>
+    <h1 class="hero-title">
+      <span>Dylan</span>
+      <span>Budner</span>
+    </h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">Select a project above to view</p>
+  </main>
+
+  <footer>© 2026 Dylan Budner</footer>
+
+</body>
+</html>
