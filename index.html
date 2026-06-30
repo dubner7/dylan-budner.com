@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dylan Budner</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #ffffff;
+      --ink: #111;
+      --muted: #888;
+      --sidebar: 220px;
+      --hover-scale: 1.03;
+      --fs: 13px;
+    }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+    }
+
+    .layout {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: var(--sidebar);
+      flex-shrink: 0;
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      padding: 40px 28px;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      z-index: 10;
+    }
+
+    .site-name {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      font-weight: bold;
+      color: var(--ink);
+      text-decoration: none;
+      cursor: pointer;
+      margin-bottom: 20px;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .site-name:hover { opacity: 0.5; }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    nav a {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      font-weight: normal;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 3px 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      position: relative;
+      width: fit-content;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--ink);
+      transition: width 0.25s ease;
+    }
+    nav a:hover::after { width: 100%; }
+
+    .back-btn {
+      display: none;
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      color: var(--ink);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 3px 0;
+      margin-bottom: 16px;
+      text-align: left;
+      align-items: center;
+      gap: 5px;
+    }
+    .back-btn.visible { display: flex; }
+    .back-btn:hover { opacity: 0.5; }
+
+    .sidebar-footer {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      color: var(--muted);
+    }
+
+    /* ── MAIN ── */
+    main {
+      margin-left: var(--sidebar);
+      flex: 1;
+      padding: 40px 40px 80px;
+      min-height: 100vh;
+    }
+
+    #home-view { display: block; }
+    #project-view { display: none; }
+
+    .grid-label {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      font-weight: bold;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+
+    .project-grid {
+      columns: 2;
+      column-gap: 16px;
+    }
+
+    .grid-item {
+      break-inside: avoid;
+      margin-bottom: 16px;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .grid-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .grid-item:hover img {
+      transform: scale(var(--hover-scale));
+    }
+
+    .grid-item-label { display: none; }
+
+    .grid-placeholder {
+      width: 100%;
+      background: #e8e8e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+    }
+
+    /* ── PROJECT VIEW ── */
+    #project-view { max-width: 860px; }
+
+    .project-header { margin-bottom: 40px; }
+
+    .project-title {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .project-meta {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      color: var(--muted);
+      display: flex;
+      gap: 20px;
+    }
+
+    .project-description {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      line-height: 1.75;
+      color: #444;
+      max-width: 560px;
+      margin-top: 16px;
+    }
+
+    .project-images {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .project-images img { width: 100%; display: block; }
+
+    .proj-img-placeholder {
+      width: 100%;
+      background: #e8e8e8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #bbb;
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+    }
+
+    .fade-in { animation: fadeIn 0.4s ease forwards; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .grid-item img { transition: none; }
+      .fade-in { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <aside>
+    <a class="site-name" onclick="showHome()">Dylan Budner</a>
+
+    <button class="back-btn" id="back-btn" onclick="showHome()">← Back</button>
+
+    <nav>
+      <a href="about.html">↗ About</a>
+      <a href="#" target="_blank">↗ Portfolio</a>
+      <a href="#" target="_blank">↗ Resume</a>
+      <a href="https://www.linkedin.com/in/dylan-budner" target="_blank">↗ LinkedIn</a>
+      <a href="https://www.instagram.com/" target="_blank">↗ Instagram</a>
+    </nav>
+
+    <span class="sidebar-footer">© 2026</span>
+  </aside>
+
+  <main>
+    <div id="home-view">
+      <p class="grid-label">Selected Work</p>
+      <div class="project-grid">
+
+        <div class="grid-item" onclick="showProject('lakehouse')">
+          <div class="grid-placeholder" style="height:320px;">Image — Lake House</div>
+          <div class="grid-item-label">Single Family Lake House</div>
+        </div>
+
+        <div class="grid-item" onclick="showProject('bigdumbbox')">
+          <div class="grid-placeholder" style="height:240px;">Image — Big Dumb Box</div>
+          <div class="grid-item-label">Big Dumb Box</div>
+        </div>
+
+        <div class="grid-item" onclick="showProject('socialfamily')">
+          <div class="grid-placeholder" style="height:280px;">Image — Social Family Home</div>
+          <div class="grid-item-label">Social Family Home</div>
+        </div>
+
+        <div class="grid-item" onclick="showProject('arizona')">
+          <div class="grid-placeholder" style="height:360px;">Image — Arizona Shade</div>
+          <div class="grid-item-label">Arizona Shade Structures</div>
+        </div>
+
+        <div class="grid-item" onclick="showProject('wordstoworlds')">
+          <div class="grid-placeholder" style="height:300px;">Image — Words to Worlds</div>
+          <div class="grid-item-label">From Words to Worlds</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div id="project-view"></div>
+  </main>
+</div>
+
+<script>
+  const projects = {
+    lakehouse: {
+      title: 'Single Family Lake House',
+      location: 'Plymouth, Vermont',
+      year: '2024',
+      description: 'Add your project description here.',
+      images: [
+        { src: null, h: 520 },
+        { src: null, h: 400 },
+        { src: null, h: 480 },
+      ]
+    },
+    bigdumbbox: {
+      title: 'Big Dumb Box',
+      location: '',
+      year: '2024',
+      description: 'Add your project description here.',
+      images: [
+        { src: null, h: 480 },
+        { src: null, h: 400 },
+      ]
+    },
+    socialfamily: {
+      title: 'Social Family Home',
+      location: 'Killington, Vermont',
+      year: '2024',
+      description: 'Add your project description here.',
+      images: [
+        { src: null, h: 520 },
+        { src: null, h: 440 },
+        { src: null, h: 400 },
+      ]
+    },
+    arizona: {
+      title: 'Arizona Shade Structures',
+      location: 'Arcosanti, Arizona',
+      year: '2024',
+      description: 'Add your project description here.',
+      images: [
+        { src: null, h: 480 },
+        { src: null, h: 520 },
+        { src: null, h: 400 },
+        { src: null, h: 440 },
+      ]
+    },
+    wordstoworlds: {
+      title: 'From Words to Worlds',
+      location: 'Tufts University',
+      year: '2024',
+      description: 'Add your project description here.',
+      images: [
+        { src: null, h: 500 },
+        { src: null, h: 420 },
+        { src: null, h: 480 },
+      ]
+    }
+  };
+
+  function showHome() {
+    document.getElementById('home-view').style.display = 'block';
+    document.getElementById('project-view').style.display = 'none';
+    document.getElementById('back-btn').classList.remove('visible');
+    document.getElementById('home-view').classList.add('fade-in');
+  }
+
+  function showProject(key) {
+    const p = projects[key];
+    if (!p) return;
+
+    const metaParts = [p.location, p.year].filter(Boolean);
+
+    const imagesHTML = p.images.map(img => {
+      if (img.src) {
+        return `<img src="${img.src}" alt="">`;
+      } else {
+        return `<div class="proj-img-placeholder" style="height:${img.h}px;">— image placeholder —</div>`;
+      }
+    }).join('');
+
+    document.getElementById('project-view').innerHTML = `
+      <div class="project-header">
+        <h1 class="project-title">${p.title}</h1>
+        <div class="project-meta">
+          ${metaParts.map(m => `<span>${m}</span>`).join('')}
+        </div>
+        ${p.description ? `<p class="project-description">${p.description}</p>` : ''}
+      </div>
+      <div class="project-images">${imagesHTML}</div>
+    `;
+
+    document.getElementById('home-view').style.display = 'none';
+    document.getElementById('project-view').style.display = 'block';
+    document.getElementById('project-view').classList.add('fade-in');
+    document.getElementById('back-btn').classList.add('visible');
+    window.scrollTo(0, 0);
+  }
+</script>
+
+</body>
+</html>
