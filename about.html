@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About — Dylan Budner</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #fff; --ink: #111; --muted: #888; --sidebar: 220px; --fs: 13px; }
+
+    html, body {
+      height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+    }
+
+    .layout { display: flex; min-height: 100vh; }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: var(--sidebar);
+      flex-shrink: 0;
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      padding: 40px 28px;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg);
+      z-index: 10;
+    }
+
+    .site-name {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      font-weight: bold;
+      color: var(--ink);
+      text-decoration: none;
+      margin-bottom: 20px;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .site-name:hover { opacity: 0.5; }
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+    }
+
+    nav a {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      font-weight: normal;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 3px 0;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      position: relative;
+      width: fit-content;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--ink);
+      transition: width 0.25s ease;
+    }
+    nav a:hover::after { width: 100%; }
+
+    .sidebar-footer {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      color: var(--muted);
+    }
+
+    /* ── MAIN ── */
+    main {
+      margin-left: var(--sidebar);
+      flex: 1;
+      padding: 40px 40px 80px;
+      min-height: 100vh;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    /* ── LEFT: PORTRAIT ── */
+    .portrait-col img {
+      width: 100%;
+      display: block;
+      max-width: 380px;
+    }
+
+    .portrait-name {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      font-weight: bold;
+      color: var(--ink);
+      margin-top: 16px;
+      margin-bottom: 12px;
+    }
+
+    .contact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .contact-list li {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      color: var(--muted);
+    }
+
+    .contact-list a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .contact-list a:hover { color: var(--ink); }
+
+    /* ── RIGHT: BIO ── */
+    .bio-col {
+      padding-top: 4px;
+    }
+
+    .bio-col p {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      line-height: 1.8;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .bio-col p:last-child { margin-bottom: 0; }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+
+  <aside>
+    <a class="site-name" href="index.html">Dylan Budner</a>
+    <nav>
+      <a href="about.html">↗ About</a>
+      <a href="#" target="_blank">↗ Portfolio</a>
+      <a href="#" target="_blank">↗ Resume</a>
+      <a href="https://www.linkedin.com/in/dylan-budner-61073b271/" target="_blank">↗ LinkedIn</a>
+    </nav>
+    <span class="sidebar-footer">© 2026</span>
+  </aside>
+
+  <main>
+    <div class="about-grid">
+
+      <!-- LEFT: Portrait + contact -->
+      <div class="portrait-col">
+        <img src="portrait.png" alt="Dylan Budner">
+        <p class="portrait-name">Dylan Budner</p>
+        <ul class="contact-list">
+          <li>(603) 667-5479</li>
+          <li><a href="mailto:dylan.budner@tufts.edu">dylan.budner@tufts.edu</a></li>
+          <li>1311 Route 12A, Plainfield NH</li>
+        </ul>
+      </div>
+
+      <!-- RIGHT: Bio -->
+      <div class="bio-col">
+        <p>Dylan Budner is an architectural designer interested in the relationship between theory and practice. He graduated from Tufts University with a degree in Architectural Studies and Structural Engineering. His work spans residential and commercial architecture, guided by a belief that every design decision should have a clear purpose. He approaches architecture as a way of understanding how people interact with the built environment.</p>
+        <p>Beyond architecture, Dylan has a broad interest in design across different forms of media and enjoys hiking, fishing, and skiing. His appreciation for ecological design has been shaped by time spent outdoors, while his involvement in community service, including The Prouty, reflects his belief that design should ultimately serve people. He is currently gaining professional experience before pursuing a master's degree and architectural licensure.</p>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+</body>
+</html>
