@@ -295,9 +295,199 @@
   </main>
 </div>
 
+<style>
+  /* ── GALLERY ── */
+  .gallery-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+
+  .gallery-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .gallery-track img {
+    flex-shrink: 0;
+    width: 100%;
+    object-fit: contain;
+    max-height: 520px;
+    cursor: zoom-in;
+    display: block;
+    background: #f5f5f5;
+  }
+
+  .gallery-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.25);
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: background 0.2s;
+    color: #111;
+  }
+  .gallery-btn:hover { background: rgba(255,255,255,0.6); }
+  .gallery-btn.prev { left: 12px; }
+  .gallery-btn.next { right: 12px; }
+
+  .gallery-dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .gallery-dots span {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .gallery-dots span.active { background: #111; }
+
+  .gallery-section-title {
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    font-weight: normal;
+    color: #111;
+    margin: 40px 0 16px;
+  }
+
+  /* ── LIGHTBOX ── */
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  #lightbox.open { display: flex; }
+
+  #lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    cursor: default;
+  }
+
+  #lightbox-close {
+    position: fixed;
+    top: 24px; right: 32px;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    line-height: 1;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+  }
+  #lightbox-close:hover { opacity: 1; }
+
+  #lightbox-prev, #lightbox-next {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    padding: 16px;
+  }
+  #lightbox-prev:hover, #lightbox-next:hover { opacity: 1; }
+  #lightbox-prev { left: 20px; }
+  #lightbox-next { right: 20px; }
+</style>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button id="lightbox-close">✕</button>
+  <button id="lightbox-prev">&#8592;</button>
+  <img id="lightbox-img" src="" alt="">
+  <button id="lightbox-next">&#8594;</button>
+</div>
+
 <script>
+  // ── GALLERY BUILDER ──
+  function buildGallery(id, images) {
+    const wrap = document.getElementById(id);
+    if (!wrap) return;
+
+    const track = wrap.querySelector('.gallery-track');
+    const dots = wrap.querySelector('.gallery-dots');
+    let current = 0;
+
+    images.forEach((src, i) => {
+      const img = document.createElement('img');
+      img.src = src;
+      img.addEventListener('click', () => openLightbox(images, i));
+      track.appendChild(img);
+
+      const dot = document.createElement('span');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => goTo(i));
+      dots.appendChild(dot);
+    });
+
+    function goTo(n) {
+      current = (n + images.length) % images.length;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      dots.querySelectorAll('span').forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+
+    wrap.querySelector('.prev').addEventListener('click', () => goTo(current - 1));
+    wrap.querySelector('.next').addEventListener('click', () => goTo(current + 1));
+  }
+
+  // ── LIGHTBOX ──
+  let lbImages = [], lbIndex = 0;
+
+  function openLightbox(images, index) {
+    lbImages = images;
+    lbIndex = index;
+    document.getElementById('lightbox-img').src = lbImages[lbIndex];
+    document.getElementById('lightbox').classList.add('open');
+  }
+
+  document.getElementById('lightbox-close').addEventListener('click', () => {
+    document.getElementById('lightbox').classList.remove('open');
+  });
+
+  document.getElementById('lightbox-prev').addEventListener('click', () => {
+    lbIndex = (lbIndex - 1 + lbImages.length) % lbImages.length;
+    document.getElementById('lightbox-img').src = lbImages[lbIndex];
+  });
+
+  document.getElementById('lightbox-next').addEventListener('click', () => {
+    lbIndex = (lbIndex + 1) % lbImages.length;
+    document.getElementById('lightbox-img').src = lbImages[lbIndex];
+  });
+
+  document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target === document.getElementById('lightbox')) {
+      document.getElementById('lightbox').classList.remove('open');
+    }
+  });
+
+  // ── PROJECT DATA ──
   const projects = {
-    project1: { title: 'Project 1', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
+    project1: { type: 'custom', key: 'arizona' },
     project2: { title: 'Project 2', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
     project3: { title: 'Project 3', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
     project4: { title: 'Project 4', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
@@ -306,6 +496,25 @@
     project7: { title: 'Project 7', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
     project8: { title: 'Project 8', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
     project9: { title: 'Project 9', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
+  };
+
+  const customProjects = {
+    arizona: {
+      drawings: [
+        'p1-waddell-plan.png',
+        'p1-waddell-section.png',
+        'p1-arcosanti-plan.png',
+        'p1-arcosanti-section.png',
+      ],
+      photos: [
+        'p1-photo1.jpeg',
+        'p1-photo2.jpeg',
+        'p1-photo3.jpeg',
+        'p1-photo4.jpeg',
+        'p1-photo5.jpeg',
+        'p1-photo6.jpeg',
+      ]
+    }
   };
 
   function showHome() {
@@ -319,26 +528,58 @@
     const p = projects[key];
     if (!p) return;
 
-    const metaParts = [p.location, p.year].filter(Boolean);
+    let html = '';
 
-    const imagesHTML = p.images.map(img => {
-      if (img.src) {
-        return `<img src="${img.src}" alt="">`;
-      } else {
-        return `<div class="proj-img-placeholder" style="height:${img.h}px;">— image placeholder —</div>`;
-      }
-    }).join('');
-
-    document.getElementById('project-view').innerHTML = `
-      <div class="project-header">
-        <h1 class="project-title">${p.title}</h1>
-        <div class="project-meta">
-          ${metaParts.map(m => `<span>${m}</span>`).join('')}
+    if (p.type === 'custom') {
+      const cp = customProjects[p.key];
+      html = `
+        <div class="gallery-wrap" id="gallery-photos">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
         </div>
-        ${p.description ? `<p class="project-description">${p.description}</p>` : ''}
-      </div>
-      <div class="project-images">${imagesHTML}</div>
-    `;
+
+        <p class="gallery-section-title">Shade Structures in Arizona</p>
+
+        <div class="gallery-wrap" id="gallery-drawings">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+      `;
+
+      document.getElementById('project-view').innerHTML = html;
+
+      const wraps = document.getElementById('project-view').querySelectorAll('.gallery-wrap');
+      const drawWrap = wraps[0];
+      const photoWrap = wraps[1];
+
+      // Give them IDs dynamically
+      drawWrap.id = 'gallery-drawings';
+      photoWrap.id = 'gallery-photos';
+
+      buildGallery('gallery-drawings', cp.drawings);
+      buildGallery('gallery-photos', cp.photos);
+
+    } else {
+      const metaParts = [p.location, p.year].filter(Boolean);
+      const imagesHTML = p.images.map(img => {
+        if (img.src) return `<img src="${img.src}" alt="">`;
+        return `<div class="proj-img-placeholder" style="height:${img.h}px;">— image placeholder —</div>`;
+      }).join('');
+
+      html = `
+        <div class="project-header">
+          <h1 class="project-title">${p.title}</h1>
+          <div class="project-meta">${metaParts.map(m => `<span>${m}</span>`).join('')}</div>
+          ${p.description ? `<p class="project-description">${p.description}</p>` : ''}
+        </div>
+        <div class="project-images">${imagesHTML}</div>
+      `;
+      document.getElementById('project-view').innerHTML = html;
+    }
 
     document.getElementById('home-view').style.display = 'none';
     document.getElementById('project-view').style.display = 'block';
