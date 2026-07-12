@@ -489,7 +489,7 @@
   const projects = {
     project1: { type: 'custom', key: 'arizona' },
     project2: { title: 'Project 2', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
-    project3: { title: 'Project 3', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
+    project3: { type: 'custom', key: 'bigdumbbox' },
     project4: { title: 'Project 4', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
     project5: { title: 'Project 5', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
     project6: { title: 'Project 6', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
@@ -514,6 +514,18 @@
         'p1-photo5.jpeg',
         'p1-photo6.jpeg',
       ]
+    },
+    bigdumbbox: {
+      hero: 'p3-photo7.jpeg',
+      photos: [
+        'p3-photo1.jpeg',
+        'p3-photo2.jpeg',
+        'p3-photo3.jpeg',
+        'p3-photo4.jpeg',
+        'p3-photo5.jpeg',
+        'p3-photo6.jpeg',
+        'p3-photo7.jpeg',
+      ]
     }
   };
 
@@ -530,7 +542,7 @@
 
     let html = '';
 
-    if (p.type === 'custom') {
+    if (p.type === 'custom' && p.key === 'arizona') {
       const cp = customProjects[p.key];
       html = `
         <div class="gallery-wrap" id="gallery-photos">
@@ -553,6 +565,22 @@
 
       document.getElementById('project-view').innerHTML = html;
       buildGallery('gallery-photos', cp.photos);
+
+    } else if (p.type === 'custom' && p.key === 'bigdumbbox') {
+      const cp = customProjects[p.key];
+      html = `
+        <img src="${cp.hero}" alt="Project 3 Hero" style="width:100%; display:block; margin-bottom:40px; cursor:zoom-in;" onclick="openLightbox(${JSON.stringify(cp.photos)}, ${cp.photos.indexOf(cp.hero)})">
+
+        <div class="gallery-wrap" id="gallery-p3">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+      `;
+
+      document.getElementById('project-view').innerHTML = html;
+      buildGallery('gallery-p3', cp.photos);
 
     } else {
       const metaParts = [p.location, p.year].filter(Boolean);
