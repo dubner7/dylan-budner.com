@@ -540,27 +540,18 @@
           <div class="gallery-dots"></div>
         </div>
 
-        <p class="gallery-section-title">Shade Structures in Arizona</p>
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-top:40px;">Shade Structures in Arizona</p>
+        <p style="font-family:Arial,sans-serif; font-size:15px; color:#555; margin-top:8px; margin-bottom:32px;">Two shade structures at John Henry Waddell Studio and Arcosanti, Arizona.</p>
 
-        <div class="gallery-wrap" id="gallery-drawings">
-          <div class="gallery-track"></div>
-          <button class="gallery-btn prev">&#8592;</button>
-          <button class="gallery-btn next">&#8594;</button>
-          <div class="gallery-dots"></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:60px;">
+          <img src="p1-waddell-plan.png" alt="Waddell Plan" style="width:100%; display:block; cursor:zoom-in; background:#f5f5f5;" onclick="openLightbox(['p1-waddell-plan.png','p1-waddell-section.png','p1-arcosanti-plan.png','p1-arcosanti-section.png'], 0)">
+          <img src="p1-waddell-section.png" alt="Waddell Section" style="width:100%; display:block; cursor:zoom-in; background:#f5f5f5;" onclick="openLightbox(['p1-waddell-plan.png','p1-waddell-section.png','p1-arcosanti-plan.png','p1-arcosanti-section.png'], 1)">
+          <img src="p1-arcosanti-plan.png" alt="Arcosanti Plan" style="width:100%; display:block; cursor:zoom-in; background:#f5f5f5;" onclick="openLightbox(['p1-waddell-plan.png','p1-waddell-section.png','p1-arcosanti-plan.png','p1-arcosanti-section.png'], 2)">
+          <img src="p1-arcosanti-section.png" alt="Arcosanti Section" style="width:100%; display:block; cursor:zoom-in; background:#f5f5f5;" onclick="openLightbox(['p1-waddell-plan.png','p1-waddell-section.png','p1-arcosanti-plan.png','p1-arcosanti-section.png'], 3)">
         </div>
       `;
 
       document.getElementById('project-view').innerHTML = html;
-
-      const wraps = document.getElementById('project-view').querySelectorAll('.gallery-wrap');
-      const drawWrap = wraps[0];
-      const photoWrap = wraps[1];
-
-      // Give them IDs dynamically
-      drawWrap.id = 'gallery-drawings';
-      photoWrap.id = 'gallery-photos';
-
-      buildGallery('gallery-drawings', cp.drawings);
       buildGallery('gallery-photos', cp.photos);
 
     } else {
