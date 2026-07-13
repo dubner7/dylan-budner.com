@@ -494,7 +494,7 @@
     project5: { type: 'custom', key: 'hardbox' },
     project6: { type: 'custom', key: 'corewall' },
     project7: { title: 'Project 7', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
-    project8: { title: 'Project 8', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
+    project8: { type: 'custom', key: 'trees' },
     project9: { title: 'Project 9', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
   };
 
@@ -586,6 +586,13 @@
         'p6-elevations.png',
         'p6-section1.png',
         'p6-section2.png',
+      ]
+    },
+    trees: {
+      photos: [
+        'tree-closeup.jpg',
+        'tree-model.jpg',
+        'tree-final.png',
       ]
     }
   };
@@ -739,6 +746,23 @@
 
       document.getElementById('project-view').innerHTML = html;
       buildGallery('gallery-p6-drawings', cp.drawings);
+
+    } else if (p.type === 'custom' && p.key === 'trees') {
+      const cp = customProjects[p.key];
+      html = `
+        <div class="gallery-wrap" id="gallery-p8">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-top:40px;">Trees</p>
+        <p style="font-family:Arial,sans-serif; font-size:15px; color:#555; margin-top:8px; margin-bottom:60px; max-width:560px; line-height:1.7;">Proposal to plant Norwegian spruce trees near the memorial steps.</p>
+      `;
+
+      document.getElementById('project-view').innerHTML = html;
+      buildGallery('gallery-p8', cp.photos);
 
     } else {
       const metaParts = [p.location, p.year].filter(Boolean);
