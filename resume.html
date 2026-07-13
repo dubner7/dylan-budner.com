@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume — Dylan Budner</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg: #fff; --ink: #111; --muted: #888; --sidebar: 220px; --fs: 15px; }
+    html, body { height: 100%; background: var(--bg); color: var(--ink); font-family: Arial, sans-serif; font-size: var(--fs); }
+    .layout { display: flex; min-height: 100vh; }
+    aside { width: var(--sidebar); flex-shrink: 0; position: fixed; top: 0; left: 0; height: 100vh; padding: 40px 28px; display: flex; flex-direction: column; background: var(--bg); z-index: 10; }
+    .site-name { font-family: Arial, sans-serif; font-size: var(--fs); font-weight: bold; color: var(--ink); text-decoration: none; margin-bottom: 20px; display: block; transition: opacity 0.2s; }
+    .site-name:hover { opacity: 0.5; }
+    nav { display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    nav a { font-family: Arial, sans-serif; font-size: var(--fs); font-weight: normal; color: var(--ink); text-decoration: none; padding: 3px 0; display: flex; align-items: center; gap: 5px; position: relative; width: fit-content; }
+    nav a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--ink); transition: width 0.25s ease; }
+    nav a:hover::after { width: 100%; }
+    .sidebar-footer { font-family: Arial, sans-serif; font-size: var(--fs); color: var(--muted); }
+    main { margin-left: var(--sidebar); flex: 1; padding: 40px 40px 80px; }
+    .resume-link {
+      font-family: Arial, sans-serif;
+      font-size: var(--fs);
+      color: var(--ink);
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .resume-link:hover { opacity: 0.5; }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside>
+    <a class="site-name" href="index.html">Dylan Budner</a>
+    <nav>
+      <a href="about.html">↗ About</a>
+      <a href="#" target="_blank">↗ Portfolio</a>
+      <a href="resume.html">↗ Resume</a>
+      <a href="https://www.linkedin.com/in/dylan-budner-61073b271/" target="_blank">↗ LinkedIn</a>
+    </nav>
+    <span class="sidebar-footer">© 2026</span>
+  </aside>
+  <main>
+    <a class="resume-link" href="resume.pdf" download="Resume_Dylan_Budner.pdf">Resume</a>
+  </main>
+</div>
+</body>
+</html>
