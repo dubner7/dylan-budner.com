@@ -500,7 +500,7 @@
     project6: { type: 'custom', key: 'corewall' },
     project7: { title: 'Project 7', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
     project8: { type: 'custom', key: 'trees' },
-    project9: { title: 'Project 9', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
+    project9: { type: 'custom', key: 'bridge' },
   };
 
   const customProjects = {
@@ -599,6 +599,14 @@
         'tree-model.jpg',
         'tree-final.png',
       ]
+    },
+    bridge: {
+      photos: [
+        'p9-photo1.png',
+        'p9-photo2.png',
+        'p9-photo3.png',
+      ],
+      video: 'p9-video.mp4'
     }
   };
 
@@ -768,6 +776,27 @@
 
       document.getElementById('project-view').innerHTML = html;
       buildGallery('gallery-p8', cp.photos);
+
+    } else if (p.type === 'custom' && p.key === 'bridge') {
+      const cp = customProjects[p.key];
+      html = `
+        <div class="gallery-wrap" id="gallery-p9">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-top:40px; margin-bottom:24px;">Bridge Competition</p>
+
+        <video controls playsinline preload="metadata" style="width:100%; display:block; background:#111; margin-bottom:60px;">
+          <source src="${cp.video}" type="video/mp4">
+          Your browser does not support embedded video.
+        </video>
+      `;
+
+      document.getElementById('project-view').innerHTML = html;
+      buildGallery('gallery-p9', cp.photos);
 
     } else {
       const metaParts = [p.location, p.year].filter(Boolean);
