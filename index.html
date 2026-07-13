@@ -492,7 +492,7 @@
     project3: { type: 'custom', key: 'bigdumbbox' },
     project4: { title: 'Project 4', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
     project5: { type: 'custom', key: 'hardbox' },
-    project6: { title: 'Project 6', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
+    project6: { type: 'custom', key: 'corewall' },
     project7: { title: 'Project 7', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
     project8: { title: 'Project 8', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
     project9: { title: 'Project 9', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
@@ -555,6 +555,21 @@
         'thumb-5.png',
         'p5-photo1.png',
         'p5-photo2.jpeg',
+      ]
+    },
+    corewall: {
+      photos: [
+        'p6-photo1.png',
+        'p6-photo2.png',
+        'p6-photo3.png',
+      ],
+      drawings: [
+        'p6-plan1.png',
+        'p6-plan2.png',
+        'p6-plan3.png',
+        'p6-elevations.png',
+        'p6-section1.png',
+        'p6-section2.png',
       ]
     }
   };
@@ -662,6 +677,27 @@
 
       document.getElementById('project-view').innerHTML = html;
       buildGallery('gallery-p5', cp.photos);
+
+    } else if (p.type === 'custom' && p.key === 'corewall') {
+      const cp = customProjects[p.key];
+      html = `
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-bottom:16px;">Core Versus Wall</p>
+
+        <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:60px;">
+          ${cp.photos.map((src, i) => `<img src="${src}" alt="Core Versus Wall model photograph ${i + 1}" style="width:100%; display:block; cursor:zoom-in;" onclick='openLightbox(${JSON.stringify(cp.photos)}, ${i})'>`).join('')}
+        </div>
+
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-bottom:16px;">Plans, Elevations, and Sections</p>
+        <div class="gallery-wrap" id="gallery-p6-drawings">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+      `;
+
+      document.getElementById('project-view').innerHTML = html;
+      buildGallery('gallery-p6-drawings', cp.drawings);
 
     } else {
       const metaParts = [p.location, p.year].filter(Boolean);
