@@ -142,16 +142,21 @@
       cursor: pointer;
       overflow: hidden;
       position: relative;
+      isolation: isolate;
     }
 
     .grid-item img {
       width: 100%;
       display: block;
       transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      transform: translateZ(0);
+      will-change: transform;
     }
 
     .grid-item:hover img {
-      transform: scale(var(--hover-scale));
+      transform: translateZ(0) scale(var(--hover-scale));
     }
 
     .grid-item-label { display: none; }
