@@ -488,7 +488,7 @@
   // ── PROJECT DATA ──
   const projects = {
     project1: { type: 'custom', key: 'arizona' },
-    project2: { title: 'Project 2', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
+    project2: { type: 'custom', key: 'variablecond' },
     project3: { type: 'custom', key: 'bigdumbbox' },
     project4: { title: 'Project 4', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
     project5: { type: 'custom', key: 'hardbox' },
@@ -499,6 +499,28 @@
   };
 
   const customProjects = {
+    variablecond: {
+      hero: [
+        'p2-hero1.jpeg',
+        'p2-hero2.jpeg',
+        'p2-hero3.jpeg',
+        'p2-hero4.png',
+        'p2-hero5.png',
+      ],
+      plans: [
+        'p2-plan-site.png',
+        'p2-plan1.png',
+        'p2-plan2.png',
+        'p2-plan3.png',
+      ],
+      elevations: [
+        'p2-elev-render.jpg',
+        'p2-elev-section.png',
+        'p2-elev1.png',
+        'p2-elev2.png',
+        'p2-elev3.png',
+      ]
+    },
     arizona: {
       drawings: [
         'p1-waddell-plan.png',
@@ -550,7 +572,41 @@
 
     let html = '';
 
-    if (p.type === 'custom' && p.key === 'arizona') {
+    if (p.type === 'custom' && p.key === 'variablecond') {
+      const cp = customProjects[p.key];
+      html = `
+        <div class="gallery-wrap" id="gallery-p2-hero">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-top:40px; margin-bottom:60px; max-width:560px; line-height:1.6;">Strategies for Variable Conditions in Everyday Architecture</p>
+
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-bottom:16px;">Plans</p>
+        <div class="gallery-wrap" id="gallery-p2-plans">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-top:40px; margin-bottom:16px;">Elevations</p>
+        <div class="gallery-wrap" id="gallery-p2-elevations">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+      `;
+
+      document.getElementById('project-view').innerHTML = html;
+      buildGallery('gallery-p2-hero', cp.hero);
+      buildGallery('gallery-p2-plans', cp.plans);
+      buildGallery('gallery-p2-elevations', cp.elevations);
+
+    } else if (p.type === 'custom' && p.key === 'arizona') {
       const cp = customProjects[p.key];
       html = `
         <div class="gallery-wrap" id="gallery-photos">
