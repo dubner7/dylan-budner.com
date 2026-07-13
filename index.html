@@ -490,7 +490,7 @@
     project1: { type: 'custom', key: 'arizona' },
     project2: { type: 'custom', key: 'variablecond' },
     project3: { type: 'custom', key: 'bigdumbbox' },
-    project4: { title: 'Project 4', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
+    project4: { type: 'custom', key: 'watchtower' },
     project5: { type: 'custom', key: 'hardbox' },
     project6: { type: 'custom', key: 'corewall' },
     project7: { title: 'Project 7', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
@@ -499,6 +499,22 @@
   };
 
   const customProjects = {
+    watchtower: {
+      photos: [
+        'p4-photo1.png',
+        'p4-photo2.png',
+        'p4-photo3.png',
+        'p4-photo4.png',
+        'p4-photo5.png',
+      ],
+      drawings: [
+        'p4-drawing1.png',
+        'p4-drawing2.png',
+        'p4-drawing3.png',
+        'p4-drawing4.png',
+        'p4-drawing5.png',
+      ]
+    },
     variablecond: {
       hero: [
         'p2-hero1.jpeg',
@@ -661,6 +677,31 @@
 
       document.getElementById('project-view').innerHTML = html;
       buildGallery('gallery-p3', cp.photos);
+
+    } else if (p.type === 'custom' && p.key === 'watchtower') {
+      const cp = customProjects[p.key];
+      html = `
+        <div class="gallery-wrap" id="gallery-p4-photos">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-top:40px;">Model/Drawings of a Watchtower</p>
+        <p style="font-family:Arial,sans-serif; font-size:15px; color:#555; margin-top:8px; margin-bottom:32px; max-width:560px; line-height:1.7;">Initial studies for a watchtower and monument at Paul Revere Park in Boston. The project explores vertical circulation, framed views, and a circular path through the site.</p>
+
+        <div class="gallery-wrap" id="gallery-p4-drawings">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+      `;
+
+      document.getElementById('project-view').innerHTML = html;
+      buildGallery('gallery-p4-photos', cp.photos);
+      buildGallery('gallery-p4-drawings', cp.drawings);
 
     } else if (p.type === 'custom' && p.key === 'hardbox') {
       const cp = customProjects[p.key];
