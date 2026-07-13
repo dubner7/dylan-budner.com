@@ -498,7 +498,7 @@
     project4: { type: 'custom', key: 'watchtower' },
     project5: { type: 'custom', key: 'hardbox' },
     project6: { type: 'custom', key: 'corewall' },
-    project7: { title: 'Project 7', location: '', year: '', description: '', images: [{ src: null, h: 500 }] },
+    project7: { type: 'custom', key: 'lakehouse' },
     project8: { type: 'custom', key: 'trees' },
     project9: { type: 'custom', key: 'bridge' },
   };
@@ -591,6 +591,45 @@
         'p6-elevations.png',
         'p6-section1.png',
         'p6-section2.png',
+      ]
+    },
+    lakehouse: {
+      working: [
+        'p7-working1.png',
+        'p7-working2.png',
+        'p7-working3.png',
+        'p7-working4.png',
+      ],
+      previous: [
+        'p7-previous1.png',
+        'p7-previous2.png',
+        'p7-previous3.png',
+        'p7-previous4.png',
+      ],
+      measurements: [
+        'p7-measurement1.png',
+        'p7-measurement2.png',
+        'p7-measurement3.png',
+        'p7-measurement4.png',
+        'p7-measurement5.png',
+        'p7-measurement6.png',
+        'p7-measurement7.png',
+        'p7-measurement8.png',
+        'p7-measurement9.png',
+        'p7-measurement10.png',
+        'p7-measurement11.png',
+        'p7-measurement12.png',
+        'p7-measurement13.png',
+        'p7-measurement14.png',
+        'p7-measurement15.png',
+        'p7-measurement16.png',
+        'p7-measurement17.png',
+        'p7-measurement18.png',
+        'p7-measurement19.png',
+        'p7-measurement20.png',
+        'p7-measurement21.png',
+        'p7-measurement22.png',
+        'p7-measurement23.png',
       ]
     },
     trees: {
@@ -759,6 +798,42 @@
 
       document.getElementById('project-view').innerHTML = html;
       buildGallery('gallery-p6-drawings', cp.drawings);
+
+    } else if (p.type === 'custom' && p.key === 'lakehouse') {
+      const cp = customProjects[p.key];
+      html = `
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-bottom:8px;">Single Family Lake House</p>
+        <p style="font-family:Arial,sans-serif; font-size:15px; color:#555; margin-bottom:40px; max-width:560px; line-height:1.7;">Design for the complete renovation of a single-family lake house. This project is currently a work in progress.</p>
+
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-bottom:16px;">Working Design</p>
+        <div class="gallery-wrap" id="gallery-p7-working">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-top:40px; margin-bottom:16px;">Previous House Layout</p>
+        <div class="gallery-wrap" id="gallery-p7-previous">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-top:40px; margin-bottom:16px;">Measurement Report</p>
+        <div class="gallery-wrap" id="gallery-p7-measurements">
+          <div class="gallery-track"></div>
+          <button class="gallery-btn prev">&#8592;</button>
+          <button class="gallery-btn next">&#8594;</button>
+          <div class="gallery-dots"></div>
+        </div>
+      `;
+
+      document.getElementById('project-view').innerHTML = html;
+      buildGallery('gallery-p7-working', cp.working);
+      buildGallery('gallery-p7-previous', cp.previous);
+      buildGallery('gallery-p7-measurements', cp.measurements);
 
     } else if (p.type === 'custom' && p.key === 'trees') {
       const cp = customProjects[p.key];
