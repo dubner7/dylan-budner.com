@@ -516,8 +516,9 @@
       ]
     },
     bigdumbbox: {
-      hero: 'p3-photo7.jpeg',
+      hero: 'thumb-3.jpeg',
       photos: [
+        'thumb-3.jpeg',
         'p3-photo1.jpeg',
         'p3-photo2.jpeg',
         'p3-photo3.jpeg',
@@ -569,7 +570,8 @@
     } else if (p.type === 'custom' && p.key === 'bigdumbbox') {
       const cp = customProjects[p.key];
       html = `
-        <img src="${cp.hero}" alt="Project 3 Hero" style="width:100%; display:block; margin-bottom:40px; cursor:zoom-in;" onclick="openLightbox(${JSON.stringify(cp.photos)}, ${cp.photos.indexOf(cp.hero)})">
+        <p style="font-family:Arial,sans-serif; font-size:15px; font-weight:bold; color:#111; margin-bottom:16px;">A Framework for Occupation</p>
+        <img src="${cp.hero}" alt="Project 3 Hero" style="width:100%; display:block; margin-bottom:40px; cursor:zoom-in;" onclick="openLightbox(${JSON.stringify(cp.photos)}, 0)">
 
         <div class="gallery-wrap" id="gallery-p3">
           <div class="gallery-track"></div>
